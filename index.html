@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Free Cleaning Estimate | Svit Company Inc</title>
+  <meta name="description" content="Get an instant cleaning estimate for your home in Edmonton, St. Albert, Sherwood Park or Fort Saskatchewan. Transparent pricing, no obligation." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.svitcompany.ca/estimate" />
+  <link rel="icon" href="assets/img/favicon.ico" sizes="64x64" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.10/babel.min.js"></script>
+  <style>
+    :root {
+      --green:#3d7a3a; --green-mid:#4e9a4a; --green-light:#eef5ec; --green-dark:#2c5a2a;
+      --accent:#b8d4b5; --text:#1a1a1a; --muted:#6b6b6b; --border:rgba(17,24,39,.10);
+      --bg:#ffffff; --soft:#f7f8f6; --warm:#f4f2ef; --max:1120px;
+      --radius:6px; --radius-lg:10px;
+      --shadow-1:0 2px 12px rgba(0,0,0,.07); --shadow-2:0 8px 32px rgba(0,0,0,.10);
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+    .container{width:min(var(--max),calc(100% - 32px));margin:0 auto}
+    @media(min-width:768px){.container{width:min(var(--max),calc(100% - 48px))}}
+
+    /* ── NAV ── */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:var(--radius);font-weight:700;font-size:14px;line-height:1;letter-spacing:.4px;text-transform:uppercase;border:1.5px solid rgba(17,24,39,.18);background:#fff;color:#1a1a1a;box-shadow:var(--shadow-1);cursor:pointer;transition:background .16s,border-color .16s,box-shadow .16s,color .16s;-webkit-tap-highlight-color:transparent}
+    .btn:hover{background:var(--soft);border-color:rgba(17,24,39,.28);box-shadow:var(--shadow-2)}
+    .btn.primary{background:var(--green);border-color:var(--green-dark);color:#fff;box-shadow:0 2px 10px rgba(44,90,42,.22)}
+    .btn.primary:hover{background:var(--green-dark)}
+    .topbar{background:#fff;border-bottom:1px solid var(--border);box-shadow:0 1px 0 rgba(0,0,0,.06);position:sticky;top:0;z-index:100;transition:box-shadow .18s}
+    .topbar.is-scrolled{box-shadow:0 2px 16px rgba(0,0,0,.09)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:4px;overflow:hidden;border:1px solid rgba(0,0,0,.08);background:#fff;flex-shrink:0}
+    .logo img{width:100%;height:100%;object-fit:contain}
+    .menu{position:relative;display:flex;justify-content:center;gap:4px;flex:1 1 auto;flex-wrap:wrap;padding:6px 10px}
+    .menu a{padding:8px 14px;border-radius:var(--radius);color:#3a3a3a;font-weight:600;letter-spacing:.2px;text-transform:uppercase;font-size:12.5px;transition:background .15s,color .15s}
+    .menu a:hover{background:var(--green-light);color:var(--green-dark)}
+    .menu a.active{color:var(--green-dark);background:var(--green-light);font-weight:700}
+    .nav-cta{display:flex;align-items:center;gap:10px;white-space:nowrap}
+    .nav-cta .btn{padding:10px 18px;font-size:12px}
+    .phone{font-weight:700;font-size:14px;color:var(--green-dark);padding:8px 14px;border-radius:var(--radius);background:var(--green-light);border:1px solid var(--accent);display:inline-flex;align-items:center;gap:6px;transition:background .15s}
+    .phone:hover{background:#ddeedd}
+    .nav-toggle{width:42px;height:42px;border-radius:var(--radius);border:1px solid rgba(0,0,0,.12);background:#fff;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;transition:background .15s;-webkit-tap-highlight-color:transparent}
+    .nav-toggle:hover{background:var(--soft)}
+    .nav-toggle span{position:relative;width:20px;height:1.5px;background:#333;border-radius:999px;display:block;transition:transform .18s,opacity .18s}
+    .nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:0;width:20px;height:1.5px;background:#333;border-radius:999px;transition:transform .18s,top .18s}
+    .nav-toggle span::before{top:-6px}
+    .nav-toggle span::after{top:6px}
+    .nav-toggle.is-open span{background:transparent}
+    .nav-toggle.is-open span::before{top:0;transform:rotate(45deg)}
+    .nav-toggle.is-open span::after{top:0;transform:rotate(-45deg)}
+    .mobile-nav{display:none;margin:8px 0 12px;padding:6px;border-radius:var(--radius-lg);background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-2);overflow:hidden}
+    .mobile-nav.is-open{display:block}
+    .mobile-nav a{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-radius:var(--radius);font-weight:600;font-size:13px;letter-spacing:.3px;text-transform:uppercase;color:#2a2a2a;transition:background .14s,color .14s;position:relative}
+    .mobile-nav a:not(:last-child)::after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:1px;background:rgba(17,24,39,.07)}
+    .mobile-nav a:hover{background:var(--green-light);color:var(--green-dark)}
+    .mobile-nav a.mobile-call{margin-top:6px;background:var(--green);color:#fff;justify-content:center;font-weight:700}
+    .mobile-nav a.mobile-call::after{display:none}
+    .mobile-nav a.mobile-call:hover{background:var(--green-dark)}
+    .call-floater{position:fixed;right:16px;bottom:16px;z-index:9999;display:none;padding:13px 18px;border-radius:var(--radius);background:var(--green);color:#fff;font-weight:700;font-size:13px;letter-spacing:.4px;text-transform:uppercase;box-shadow:0 4px 20px rgba(44,90,42,.30);border:1px solid var(--green-dark)}
+    .call-floater:hover{background:var(--green-dark)}
+    @media(max-width:900px){.menu,.phone{display:none}.nav-toggle{display:flex}.call-floater{display:inline-flex;align-items:center;justify-content:center}}
+    @media(min-width:901px){.nav-toggle{display:none}}
+
+    /* ── PAGE ── */
+    .page-hero{background:var(--soft);border-bottom:1px solid var(--border);padding:52px 0 40px;text-align:center}
+    .page-hero h1{margin:0 0 8px;font-size:clamp(28px,5vw,42px);font-weight:700;letter-spacing:-.6px;color:#1a1a1a}
+    .page-hero p{margin:0;color:var(--muted);font-size:15px;max-width:52ch;margin:0 auto}
+
+    .calc-wrap{padding:52px 0 80px;background:#fff}
+    .calc-box{background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-1);border-radius:var(--radius-lg);padding:32px;max-width:760px;margin:0 auto}
+    @media(max-width:520px){.calc-box{padding:20px}}
+
+    /* ── FOOTER ── */
+    .foot{background:#1c2a1c;color:rgba(255,255,255,.45);font-size:12px;padding:22px 0;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+    .foot a{color:rgba(255,255,255,.45);text-decoration:underline;text-underline-offset:3px}
+    .foot a:hover{color:#fff}
+
+    #svit-estimate-root *{box-sizing:border-box}
+  </style>
+</head>
+<body>
+
+<header class="topbar" id="siteTopbar">
+  <div class="container">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="Svit Company Inc">
+        <span class="logo"><img src="https://content.app-sources.com/s/480599257594381941/uploads/Images/WhatsApp_Image_2023-11-20_at_3.17.41_PM-1585801.png?format=webp" alt="Svit Company Inc logo" width="52" height="52" loading="eager" /></span>
+      </a>
+      <div class="menu" role="list">
+        <a href="/" role="listitem">Home</a>
+        <a href="/services" role="listitem">Services</a>
+        <a href="/estimate" role="listitem" class="active">Free Estimate</a>
+        <a href="/contact" role="listitem">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a class="phone" href="tel:+15877784567" aria-label="Call 587-778-4567">📞 <span>587 778 4567</span></a>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav"><span></span></button>
+      </div>
+    </nav>
+    <div class="mobile-nav" id="mobileNav" aria-hidden="true" role="navigation" aria-label="Mobile navigation">
+      <a href="/">Home</a><a href="/services">Services</a><a href="/estimate">Free Estimate</a><a href="/contact">Contact</a>
+      <a class="mobile-call" href="tel:+15877784567">📞 Call: 587-778-4567</a>
+    </div>
+  </div>
+</header>
+
+<a class="call-floater" href="tel:+15877784567" aria-label="Call Svit Company Inc now">📞 Call</a>
+
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <h1>Get Your Free Cleaning Estimate</h1>
+      <p>Accurate pricing for Edmonton, St. Albert, Sherwood Park &amp; Fort Saskatchewan. Prices update live — no obligation.</p>
+    </div>
+  </div>
+
+  <div class="calc-wrap">
+    <div class="container">
+      <div class="calc-box">
+        <div id="svit-estimate-root"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="container">
+    © <span id="year"></span> Svit Company Inc · Edmonton, Alberta ·
+    <a href="tel:+15877784567">587-778-4567</a> ·
+    <a href="https://www.instagram.com/svitcompany" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const topbar=document.getElementById('siteTopbar');
+  function onScroll(){ topbar.classList.toggle('is-scrolled', window.scrollY > 8); }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  const tog=document.querySelector('.nav-toggle'), mn=document.getElementById('mobileNav');
+  if(tog&&mn){
+    const open=()=>{mn.classList.add('is-open');tog.classList.add('is-open');tog.setAttribute('aria-expanded','true');mn.setAttribute('aria-hidden','false')};
+    const close=()=>{mn.classList.remove('is-open');tog.classList.remove('is-open');tog.setAttribute('aria-expanded','false');mn.setAttribute('aria-hidden','true')};
+    close();
+    tog.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();mn.classList.contains('is-open')?close():open()});
+    mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+    document.addEventListener('click',e=>{if(!mn.classList.contains('is-open'))return;if(mn.contains(e.target)||tog.contains(e.target))return;close()});
+    window.addEventListener('resize',()=>{if(window.innerWidth>900)close()});
+  }
+})();
+</script>
+
+<script type="text/babel">
+const { useState } = React;
+
+const PRICES = { bedroom:15, bathroom:36, pet:25, oven:45, fridge:45, window:7.7, blind:35, carpet:90 };
+const CITIES = [
+  { label:'Edmonton',          travel:0  },
+  { label:'St. Albert',        travel:25 },
+  { label:'Sherwood Park',     travel:25 },
+  { label:'Fort Saskatchewan', travel:55 },
+];
+function ceilTo5(n){ return Math.ceil(n/5)*5; }
+function calc(f){
+  const base   = f.bedrooms*PRICES.bedroom + f.bathrooms*PRICES.bathroom + f.pets*PRICES.pet;
+  const extras = (f.oven?PRICES.oven:0)+(f.fridge?PRICES.fridge:0)+f.windows*PRICES.window+f.blinds*PRICES.blind+f.carpets*PRICES.carpet;
+  const city   = CITIES.find(c=>c.label===f.city);
+  const travel = city ? city.travel : null;
+  const t      = travel ?? 0;
+  return { hasBase:base>0, travel, recurring:base+t, recurringDiscount:ceilTo5(base*0.85)+t, initial:base*2+extras+t, initialDiscount:ceilTo5((base*2+extras)*0.85)+t };
+}
+const fmt = n => '$'+Math.round(n).toLocaleString('en-CA');
+const F='\'DM Sans\',-apple-system,BlinkMacSystemFont,sans-serif';
+const SF='\'DM Serif Display\',Georgia,serif';
+const G='#3d7a3a',GD='#2c5a2a',S='#1e293b',B='#e2e8f0',SOFT='#f7f8f6',M='#64748b';
+
+function Stepper({ value, onChange, min=0, max=20 }){
+  const btn={width:32,height:32,background:SOFT,border:`1px solid ${B}`,borderRadius:7,cursor:'pointer',fontSize:17,color:'#475569',display:'grid',placeItems:'center',flexShrink:0,transition:'background .12s',fontFamily:F};
+  return(
+    <div style={{display:'flex',alignItems:'center',gap:10}}>
+      <button type="button" style={btn} onClick={()=>onChange(Math.max(min,value-1))} onMouseEnter={e=>e.currentTarget.style.background=B} onMouseLeave={e=>e.currentTarget.style.background=SOFT}>−</button>
+      <span style={{minWidth:24,textAlign:'center',fontSize:16,fontWeight:700,color:S,fontFamily:F}}>{value}</span>
+      <button type="button" style={btn} onClick={()=>onChange(Math.min(max,value+1))} onMouseEnter={e=>e.currentTarget.style.background=B} onMouseLeave={e=>e.currentTarget.style.background=SOFT}>+</button>
+    </div>
+  );
+}
+function Chip({ label, sub, on, toggle }){
+  return(
+    <div onClick={toggle} style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'10px 14px',borderRadius:8,cursor:'pointer',userSelect:'none',border:`1.5px solid ${on?G:B}`,background:on?'#f0faf0':'#fff',transition:'all .15s',gap:8}}>
+      <div>
+        <div style={{fontSize:13,fontWeight:600,color:S,fontFamily:F}}>{label}</div>
+        <div style={{fontSize:11,color:on?G:M,marginTop:1,fontFamily:F}}>{sub}</div>
+      </div>
+      <div style={{width:36,height:20,borderRadius:10,background:on?G:'#cbd5e1',position:'relative',flexShrink:0,transition:'background .18s'}}>
+        <div style={{width:14,height:14,borderRadius:'50%',background:'#fff',position:'absolute',top:3,left:on?19:3,transition:'left .18s',boxShadow:'0 1px 3px rgba(0,0,0,.18)'}}/>
+      </div>
+    </div>
+  );
+}
+function TI({ value, onChange, placeholder, type='text', err }){
+  const [focus,setFocus]=useState(false);
+  return(
+    <div>
+      <input type={type} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder} onFocus={()=>setFocus(true)} onBlur={()=>setFocus(false)}
+        style={{width:'100%',padding:'10px 13px',borderRadius:8,border:`1.5px solid ${err?'#ef4444':focus?S:B}`,fontSize:14,color:S,background:'#fff',outline:'none',fontFamily:F,transition:'border-color .15s'}}/>
+      {err&&<div style={{fontSize:11,color:'#ef4444',marginTop:3,fontFamily:F}}>{err}</div>}
+    </div>
+  );
+}
+function SI({ value, onChange, children, err }){
+  const [focus,setFocus]=useState(false);
+  return(
+    <div>
+      <select value={value} onChange={e=>onChange(e.target.value)} onFocus={()=>setFocus(true)} onBlur={()=>setFocus(false)}
+        style={{width:'100%',padding:'10px 13px',borderRadius:8,border:`1.5px solid ${err?'#ef4444':focus?S:B}`,fontSize:14,color:value?S:M,background:'#fff',outline:'none',fontFamily:F,appearance:'none',backgroundImage:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`,backgroundRepeat:'no-repeat',backgroundPosition:'right 12px center',paddingRight:34,transition:'border-color .15s'}}>
+        {children}
+      </select>
+      {err&&<div style={{fontSize:11,color:'#ef4444',marginTop:3,fontFamily:F}}>{err}</div>}
+    </div>
+  );
+}
+function Lbl({ children }){ return <div style={{fontSize:11,fontWeight:700,color:M,marginBottom:6,letterSpacing:'.06em',textTransform:'uppercase',fontFamily:F}}>{children}</div>; }
+function Div(){ return <div style={{height:1,background:B,margin:'20px 0'}}/>; }
+
+function PriceCard({ p }){
+  if(!p.hasBase) return(
+    <div style={{background:SOFT,border:`1px solid ${B}`,borderRadius:10,padding:'18px 20px',textAlign:'center',color:M,fontSize:14,fontFamily:F}}>
+      Enter bedroom &amp; bathroom counts above to see your instant price.
+    </div>
+  );
+  const travelNote = p.travel===null
+    ? <span style={{color:'#f59e0b'}}>Select your city to include travel fee</span>
+    : p.travel===0 ? <span>No travel fee for Edmonton</span>
+    : <span>Includes {fmt(p.travel)} travel fee</span>;
+  return(
+    <div style={{border:`1.5px solid ${B}`,borderRadius:10,overflow:'hidden'}}>
+      <div style={{background:SOFT,padding:'10px 16px',borderBottom:`1px solid ${B}`,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <span style={{fontSize:11,fontWeight:700,color:M,letterSpacing:'.06em',textTransform:'uppercase',fontFamily:F}}>Your Estimate</span>
+        <span style={{fontSize:12,color:M,fontFamily:F}}>{travelNote}</span>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr auto auto',gap:12,alignItems:'center',padding:'14px 16px',borderBottom:`1px solid ${B}`}}>
+        <div>
+          <div style={{fontSize:13,fontWeight:700,color:S,fontFamily:F}}>Recurring Clean</div>
+          <div style={{fontSize:11,color:M,marginTop:1,fontFamily:F}}>Beds · baths · pets per visit</div>
+        </div>
+        <div style={{textAlign:'right'}}>
+          <div style={{fontSize:10,color:M,fontFamily:F,marginBottom:1}}>Regular</div>
+          <div style={{fontSize:18,fontWeight:700,color:S,fontFamily:SF}}>{fmt(p.recurring)}</div>
+        </div>
+        <div style={{textAlign:'right',background:'#f0faf0',borderRadius:7,padding:'6px 11px',minWidth:80}}>
+          <div style={{fontSize:10,color:G,fontWeight:700,marginBottom:1,fontFamily:F}}>15% off</div>
+          <div style={{fontSize:18,fontWeight:700,color:G,fontFamily:SF}}>{fmt(p.recurringDiscount)}</div>
+        </div>
+      </div>
+      <div style={{padding:'8px 10px 10px'}}>
+        <div style={{display:'grid',gridTemplateColumns:'1fr auto auto',gap:12,alignItems:'center',padding:'14px 16px',background:G,borderRadius:8}}>
+          <div>
+            <div style={{fontSize:13,fontWeight:700,color:'#fff',fontFamily:F}}>Initial / Deep Clean</div>
+            <div style={{fontSize:11,color:'rgba(255,255,255,.65)',marginTop:1,fontFamily:F}}>First visit — 2× base + all add-ons</div>
+          </div>
+          <div style={{textAlign:'right'}}>
+            <div style={{fontSize:10,color:'rgba(255,255,255,.6)',fontFamily:F,marginBottom:1}}>Regular</div>
+            <div style={{fontSize:18,fontWeight:700,color:'#fff',fontFamily:SF}}>{fmt(p.initial)}</div>
+          </div>
+          <div style={{textAlign:'right',background:'rgba(255,255,255,.18)',borderRadius:7,padding:'6px 11px',minWidth:80}}>
+            <div style={{fontSize:10,color:'rgba(255,255,255,.8)',fontWeight:700,marginBottom:1,fontFamily:F}}>15% off</div>
+            <div style={{fontSize:18,fontWeight:700,color:'#fff',fontFamily:SF}}>{fmt(p.initialDiscount)}</div>
+          </div>
+        </div>
+      </div>
+      <div style={{padding:'0 16px 12px',fontSize:11,color:M,fontFamily:F}}>Discounts rounded to nearest $5. Final quote confirmed before your first visit.</div>
+    </div>
+  );
+}
+
+const WEBHOOK = 'https://hook.eu2.make.com/9prmpjsjjp3rirl1xlfblnn8rhcfmwln';
+const blank = { bedrooms:1, bathrooms:1, pets:0, oven:false, fridge:false, windows:0, blinds:0, carpets:0, city:'', fullName:'', phone:'', email:'', address:'', cleaningDate:'', schedule:'', hearAboutUs:'', notes:'' };
+
+function EstimateForm(){
+  const [form,set_]=useState(blank);
+  const [errs,setErrs]=useState({});
+  const [done,setDone]=useState(false);
+  const [busy,setBusy]=useState(false);
+  const set=k=>v=>set_(f=>({...f,[k]:v}));
+  const p=calc(form);
+
+  function validate(){
+    const e={};
+    if(!form.fullName.trim()) e.fullName='Required';
+    if(!form.phone.trim())    e.phone='Required';
+    if(!form.email.trim()||!form.email.includes('@')) e.email='Valid email required';
+    if(!form.address.trim())  e.address='Required';
+    if(!form.city)            e.city='Required';
+    if(!form.cleaningDate)    e.cleaningDate='Required';
+    setErrs(e); return !Object.keys(e).length;
+  }
+  async function submit(){
+    if(!validate()) return;
+    setBusy(true);
+    try{ await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...form,priceRecurring:p.recurring,priceRecurringDiscount:p.recurringDiscount,priceInitial:p.initial,priceInitialDiscount:p.initialDiscount,travelFee:p.travel,submittedAt:new Date().toISOString()})}); }catch(_){}
+    setBusy(false); setDone(true);
+  }
+
+  if(done) return(
+    <div style={{padding:'36px 0',textAlign:'center'}}>
+      <div style={{width:52,height:52,borderRadius:'50%',background:'#f0fdf4',border:'2px solid #22c55e',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 18px',fontSize:22}}>✓</div>
+      <div style={{fontFamily:SF,fontSize:22,color:S,marginBottom:8}}>Request Sent!</div>
+      <p style={{color:M,fontSize:14,lineHeight:1.6,margin:'0 0 6px',fontFamily:F}}>We'll be in touch shortly to confirm your booking.</p>
+      {p.hasBase&&<p style={{color:M,fontSize:13,margin:'0 0 22px',fontFamily:F}}>
+        Recurring: <strong style={{color:S}}>{fmt(p.recurringDiscount)}</strong>&ensp;·&ensp;
+        Initial: <strong style={{color:S}}>{fmt(p.initialDiscount)}</strong> <span style={{color:M}}>(15% new-client discount)</span>
+      </p>}
+      <button type="button" onClick={()=>{setDone(false);set_(blank);setErrs({})}}
+        style={{padding:'10px 24px',background:G,color:'#fff',border:'none',borderRadius:8,fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:F}}>
+        Start New Estimate
+      </button>
+    </div>
+  );
+
+  return(
+    <div style={{fontFamily:F}}>
+
+      <Lbl>Rooms</Lbl>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16,marginBottom:4}}>
+        {[['Bedrooms','bedrooms'],['Bathrooms','bathrooms'],['Pets','pets']].map(([label,key])=>(
+          <div key={key}>
+            <div style={{fontSize:12,color:M,marginBottom:7,fontFamily:F}}>{label}</div>
+            <Stepper value={form[key]} onChange={set(key)} min={0} max={key==='pets'?10:20}/>
+          </div>
+        ))}
+      </div>
+
+      <Div/>
+
+      <Lbl>Add-ons</Lbl>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:14}}>
+        <Chip label="Oven (inside)" sub={`+${fmt(PRICES.oven)}`} on={form.oven} toggle={()=>set('oven')(!form.oven)}/>
+        <Chip label="Fridge (inside)" sub={`+${fmt(PRICES.fridge)}`} on={form.fridge} toggle={()=>set('fridge')(!form.fridge)}/>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>
+        {[['Windows',`${fmt(PRICES.window)}/ea`,'windows',50],['Blinds',`${fmt(PRICES.blind)}/ea`,'blinds',30],['Carpets',`${fmt(PRICES.carpet)}/ea`,'carpets',20]].map(([lbl,sub,key,max])=>(
+          <div key={key}>
+            <div style={{fontSize:12,color:M,marginBottom:2,fontFamily:F}}>{lbl}</div>
+            <div style={{fontSize:10,color:M,marginBottom:7,fontFamily:F}}>{sub}</div>
+            <Stepper value={form[key]} onChange={set(key)} min={0} max={max}/>
+          </div>
+        ))}
+      </div>
+
+      <Div/>
+      <PriceCard p={p}/>
+      <Div/>
+
+      <Lbl>Your Details</Lbl>
+      <div style={{display:'flex',flexWrap:'wrap',gap:12}}>
+
+        <div style={{flex:'0 0 calc(50% - 6px)'}}>
+          <Lbl>Full Name *</Lbl>
+          <TI value={form.fullName} onChange={set('fullName')} placeholder="Jane Smith" err={errs.fullName}/>
+        </div>
+        <div style={{flex:'0 0 calc(50% - 6px)'}}>
+          <Lbl>Phone *</Lbl>
+          <TI value={form.phone} onChange={set('phone')} placeholder="(587) 000-0000" type="tel" err={errs.phone}/>
+        </div>
+
+        <div style={{flex:'1 1 100%'}}>
+          <Lbl>Email *</Lbl>
+          <TI value={form.email} onChange={set('email')} placeholder="jane@example.com" type="email" err={errs.email}/>
+        </div>
+
+        <div style={{flex:'1 1 100%'}}>
+          <Lbl>Service Address *</Lbl>
+          <TI value={form.address} onChange={set('address')} placeholder="123 Main St, Edmonton, AB" err={errs.address}/>
+        </div>
+
+        <div style={{flex:'0 0 calc(50% - 6px)'}}>
+          <Lbl>City / Area *</Lbl>
+          <SI value={form.city} onChange={set('city')} err={errs.city}>
+            <option value="">Select your city…</option>
+            {CITIES.map(c=><option key={c.label} value={c.label}>{c.label}{c.travel>0?` (+${fmt(c.travel)} travel)`:' — no travel fee'}</option>)}
+          </SI>
+        </div>
+
+        <div style={{flex:'0 0 calc(50% - 6px)'}}>
+          <Lbl>Preferred Date *</Lbl>
+          <TI value={form.cleaningDate} onChange={set('cleaningDate')} type="date" err={errs.cleaningDate}/>
+        </div>
+
+        <div style={{flex:'0 0 calc(50% - 6px)'}}>
+          <Lbl>Schedule</Lbl>
+          <SI value={form.schedule} onChange={set('schedule')}>
+            <option value="">Select…</option>
+            <option value="weekly">Weekly</option>
+            <option value="biweekly">Bi-Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="once">One-Time</option>
+          </SI>
+        </div>
+
+        <div style={{flex:'0 0 calc(50% - 6px)'}}>
+          <Lbl>How Did You Hear?</Lbl>
+          <SI value={form.hearAboutUs} onChange={set('hearAboutUs')}>
+            <option value="">Select…</option>
+            <option value="google">Google</option>
+            <option value="referral">Friend / Referral</option>
+            <option value="social">Social Media</option>
+            <option value="yelp">Yelp</option>
+            <option value="nextdoor">Nextdoor</option>
+            <option value="other">Other</option>
+          </SI>
+        </div>
+
+        <div style={{flex:'1 1 100%'}}>
+          <Lbl>Notes</Lbl>
+          <textarea value={form.notes} onChange={e=>set('notes')(e.target.value)}
+            placeholder="Pets, access instructions, priorities, promo code…" rows={3}
+            style={{width:'100%',padding:'10px 13px',borderRadius:8,border:`1.5px solid ${B}`,fontSize:14,color:S,background:'#fff',outline:'none',fontFamily:F,resize:'vertical',lineHeight:1.6}}/>
+        </div>
+
+      </div>
+
+      <button type="button" onClick={submit} disabled={busy}
+        style={{marginTop:14,width:'100%',padding:'14px 24px',background:busy?'#94a3b8':G,color:'#fff',border:'none',borderRadius:9,fontSize:15,fontWeight:700,cursor:busy?'default':'pointer',fontFamily:F,letterSpacing:'.2px',transition:'background .18s',boxShadow:busy?'none':'0 3px 14px rgba(44,90,42,.26)'}}
+        onMouseEnter={e=>{if(!busy)e.currentTarget.style.background=GD}}
+        onMouseLeave={e=>{if(!busy)e.currentTarget.style.background=G}}>
+        {busy?'Sending…':'📋 Request This Estimate'}
+      </button>
+      <p style={{fontSize:11,color:M,margin:'8px 0 0',textAlign:'center',fontFamily:F}}>
+        No payment required. We'll confirm pricing before your first visit.
+      </p>
+
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('svit-estimate-root')).render(<EstimateForm/>);
+</script>
+
+</body>
+</html>
