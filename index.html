@@ -346,14 +346,13 @@ function EstimateForm(){
 
       <Lbl>Add-ons</Lbl>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:14}}>
-        <Chip label="Oven (inside)" sub={`+${fmt(PRICES.oven)}`} on={form.oven} toggle={()=>set('oven')(!form.oven)}/>
-        <Chip label="Fridge (inside)" sub={`+${fmt(PRICES.fridge)}`} on={form.fridge} toggle={()=>set('fridge')(!form.fridge)}/>
+        <Chip label="Oven (inside)" sub="Add-on" on={form.oven} toggle={()=>set('oven')(!form.oven)}/>
+        <Chip label="Fridge (inside)" sub="Add-on" on={form.fridge} toggle={()=>set('fridge')(!form.fridge)}/>
       </div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>
-        {[['Windows',`${fmt(PRICES.window)}/ea`,'windows',50],['Blinds',`${fmt(PRICES.blind)}/ea`,'blinds',30],['Carpets',`${fmt(PRICES.carpet)}/ea`,'carpets',20]].map(([lbl,sub,key,max])=>(
+        {[['Windows','windows',50],['Blinds','blinds',30],['Carpets','carpets',20]].map(([lbl,key,max])=>(
           <div key={key}>
-            <div style={{fontSize:12,color:M,marginBottom:2,fontFamily:F}}>{lbl}</div>
-            <div style={{fontSize:10,color:M,marginBottom:7,fontFamily:F}}>{sub}</div>
+            <div style={{fontSize:12,color:M,marginBottom:9,fontFamily:F}}>{lbl}</div>
             <Stepper value={form[key]} onChange={set(key)} min={0} max={max}/>
           </div>
         ))}
