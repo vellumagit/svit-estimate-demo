@@ -184,13 +184,15 @@ const F='\'DM Sans\',-apple-system,BlinkMacSystemFont,sans-serif';
 const SF='\'DM Serif Display\',Georgia,serif';
 const G='#3d7a3a',GD='#2c5a2a',S='#1e293b',B='#e2e8f0',SOFT='#f7f8f6',M='#64748b';
 
-function Stepper({ value, onChange, min=0, max=20 }){
+function fmtHalf(v){ const w=Math.floor(v); const h=v%1!==0; return h?(w===0?'½':`${w}½`):String(w); }
+function Stepper({ value, onChange, min=0, max=20, step=1 }){
   const btn={width:32,height:32,background:SOFT,border:`1px solid ${B}`,borderRadius:7,cursor:'pointer',fontSize:17,color:'#475569',display:'grid',placeItems:'center',flexShrink:0,transition:'background .12s',fontFamily:F};
+  const display = step===0.5 ? fmtHalf(value) : value;
   return(
     <div style={{display:'flex',alignItems:'center',gap:10}}>
-      <button type="button" style={btn} onClick={()=>onChange(Math.max(min,value-1))} onMouseEnter={e=>e.currentTarget.style.background=B} onMouseLeave={e=>e.currentTarget.style.background=SOFT}>−</button>
-      <span style={{minWidth:24,textAlign:'center',fontSize:16,fontWeight:700,color:S,fontFamily:F}}>{value}</span>
-      <button type="button" style={btn} onClick={()=>onChange(Math.min(max,value+1))} onMouseEnter={e=>e.currentTarget.style.background=B} onMouseLeave={e=>e.currentTarget.style.background=SOFT}>+</button>
+      <button type="button" style={btn} onClick={()=>onChange(Math.max(min,Math.round((value-step)*10)/10))} onMouseEnter={e=>e.currentTarget.style.background=B} onMouseLeave={e=>e.currentTarget.style.background=SOFT}>−</button>
+      <span style={{minWidth:28,textAlign:'center',fontSize:16,fontWeight:700,color:S,fontFamily:F}}>{display}</span>
+      <button type="button" style={btn} onClick={()=>onChange(Math.min(max,Math.round((value+step)*10)/10))} onMouseEnter={e=>e.currentTarget.style.background=B} onMouseLeave={e=>e.currentTarget.style.background=SOFT}>+</button>
     </div>
   );
 }
@@ -335,7 +337,7 @@ function EstimateForm(){
         {[['Bedrooms','bedrooms'],['Bathrooms','bathrooms'],['Pets','pets']].map(([label,key])=>(
           <div key={key}>
             <div style={{fontSize:12,color:M,marginBottom:7,fontFamily:F}}>{label}</div>
-            <Stepper value={form[key]} onChange={set(key)} min={0} max={key==='pets'?10:20}/>
+            <Stepper value={form[key]} onChange={set(key)} min={0} max={key==='pets'?10:20} step={key==='bathrooms'?0.5:1}/>
           </div>
         ))}
       </div>
